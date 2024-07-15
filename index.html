@@ -16,25 +16,33 @@
     <div id="map"></div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
-        // Initialize the map
-        var map = L.map('map', {
-            crs: L.CRS.Simple,
-            minZoom: -2
-        });
+    var map = L.map('map', {
+        crs: L.CRS.Simple,
+        minZoom: -2
+    });
 
-        // Define the image bounds based on the image dimensions
-        var bounds = [[0, 0], [2160, 3790]];
+    var bounds = [[0, 0], [2160, 3790]];
+    var image = L.imageOverlay('Grand-Square.png', bounds).addTo(map);
 
-        // Add the image overlay to the map
-        var image = L.imageOverlay('Grand-Square.png', bounds).addTo(map);
+    map.fitBounds(bounds);
 
-        // Set the view to the center of the map
-        map.fitBounds(bounds);
+    // NPC Layer and Markers
+    var npcLayer = L.layerGroup(); // Create a layer group for NPCs
 
-        // Example marker (coordinates should be within the bounds)
-        var marker = L.marker([500, 500]).addTo(map)
-            .bindPopup('<b>Example Location</b>')
-            .openPopup();
-    </script>
+    // Example NPC markers (adjust coordinates and popup content accordingly)
+    var npcMarker1 = L.marker([1000, 1500]).bindPopup('NPC: Blacksmith');
+    npcLayer.addLayer(npcMarker1);
+
+    var npcMarker2 = L.marker([1200, 1800]).bindPopup('NPC: Innkeeper');
+    npcLayer.addLayer(npcMarker2);
+
+    // Add NPC layer to the map
+    npcLayer.addTo(map);
+
+    // Example marker (coordinates should be within the bounds)
+    var marker = L.marker([500, 500]).addTo(map)
+        .bindPopup('<b>Example Location</b>')
+        .openPopup();
+</script>
 </body>
 </html>
